@@ -14,8 +14,9 @@ namespace TechJobs.Models
         {
             LoadData();
 
-            // Bonus mission: return a copy
-            return new List<Dictionary<string, string>>(AllJobs);
+			// Bonus mission: return a copy
+			List<Dictionary<string, string>> AllJobsCopy = AllJobs;
+			return AllJobsCopy;
         }
 
         /*
@@ -28,15 +29,22 @@ namespace TechJobs.Models
 
             List<string> values = new List<string>();
 
-            foreach (Dictionary<string, string> job in AllJobs)
-            {
-                string aValue = job[column];
+			if (column == null)
+			{
+				return values;
+			}
+			else
+			{
+				foreach (Dictionary<string, string> job in AllJobs)
+				{
+					string aValue = job[column];
 
-                if (!values.Contains(aValue))
-                {
-                    values.Add(aValue);
-                }
-            }
+					if (!values.Contains(aValue))
+					{
+						values.Add(aValue);
+					}
+				}
+			}
 
             // Bonus mission: sort results alphabetically
             values.Sort();
@@ -52,24 +60,30 @@ namespace TechJobs.Models
             LoadData();
 
             List<Dictionary<string, string>> jobs = new List<Dictionary<string, string>>();
+			if (value == null)
+			{
+				return jobs;
+			}
+			else
+			{
+				foreach (Dictionary<string, string> row in AllJobs)
+				{
 
-            foreach (Dictionary<string, string> row in AllJobs)
-            {
+					foreach (string key in row.Keys)
+					{
+						string aValue = row[key];
 
-                foreach (string key in row.Keys)
-                {
-                    string aValue = row[key];
+						if (aValue.ToLower().Contains(value.ToLower()))
+						{
+							jobs.Add(row);
 
-                    if (aValue.ToLower().Contains(value.ToLower()))
-                    {
-                        jobs.Add(row);
-
-                        // Finding one field in a job that matches is sufficient
-                        break;
-                    }
-                }
-            }
-
+							// Finding one field in a job that matches is sufficient
+							break;
+						}
+					}
+				}
+			}
+		
             return jobs;
         }
 
@@ -85,19 +99,28 @@ namespace TechJobs.Models
             // load data, if not already loaded
             LoadData();
 
-            List<Dictionary<string, string>> jobs = new List<Dictionary<string, string>>();
+			List<Dictionary<string, string>> jobs = new List<Dictionary<string, string>>();
 
-            foreach (Dictionary<string, string> row in AllJobs)
-            {
-                string aValue = row[column];
+			if (value == null)
+			{
+				return jobs;
+			}
+			else
+			{
 
-                if (aValue.ToLower().Contains(value.ToLower()))
-                {
-                    jobs.Add(row);
-                }
-            }
+				foreach (Dictionary<string, string> row in AllJobs)
+				{
+					string aValue = row[column];
 
-            return jobs;
+					if (aValue.ToLower().Contains(value.ToLower()))
+					{
+						jobs.Add(row);
+					}
+
+				}
+
+				return jobs;
+			}
         }
 
         /*

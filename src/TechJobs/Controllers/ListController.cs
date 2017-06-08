@@ -5,28 +5,28 @@ using TechJobs.Models;
 
 namespace TechJobs.Controllers
 {
-    public class ListController : Controller
-    {
-        internal static Dictionary<string, string> columnChoices = new Dictionary<string, string>();
+	public class ListController : Controller
+	{
+		internal static Dictionary<string, string> columnChoices = new Dictionary<string, string>();
 
-        // This is a "static constructor" which can be used
-        // to initialize static members of a class
-        static ListController() 
-        {
-            
-            columnChoices.Add("core competency", "Skill");
-            columnChoices.Add("employer", "Employer");
-            columnChoices.Add("location", "Location");
-            columnChoices.Add("position type", "Position Type");
-            columnChoices.Add("all", "All");
-        }
+		// This is a "static constructor" which can be used
+		// to initialize static members of a class
+		static ListController()
+		{
 
-        public IActionResult Index()
-        {
-            ViewBag.columns = columnChoices;
-            return View();
-        }
+			columnChoices.Add("core competency", "Skill");
+			columnChoices.Add("employer", "Employer");
+			columnChoices.Add("location", "Location");
+			columnChoices.Add("position type", "Position Type");
+			columnChoices.Add("all", "All");
+		}
 
+		public IActionResult Index()
+		{
+			ViewBag.columns = columnChoices;
+			return View();
+		}
+		
         public IActionResult Values(string column)
         {
             if (column.Equals("all"))
